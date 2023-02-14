@@ -8,5 +8,9 @@ class Aeroporto {
     this.codigo = codigo;
     this.endereco = endereco;
   }
+
+  getDadosCompletos() {
+    return `${this.nome} ${this.codigo} ${this.endereco}`;
+  }
 }
 exports.Aeroporto = Aeroporto;

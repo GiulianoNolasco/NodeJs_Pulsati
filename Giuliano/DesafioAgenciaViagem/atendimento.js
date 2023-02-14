@@ -1,8 +1,13 @@
+const { Aeroporto } = require("./Aeroporto");
+const { Passageiro } = require("./Passageiro");
+const { Voo } = require("./Voo");
+
 const menuA = require("./menu").menuAeroporto;
+const SalvaA = require("./Aeroporto").Aeroporto.getDadosCompletos;
 const menuV = require("./menu").menuVoo;
 const menuP = require("./menu").menuPassageiro;
-let Voo = require("./Voo");
-
+const salvarArquivo = require("./promise").salvarArquivo;
+const lerArquivo = require("./promise").lerArquivo;
 
 const aeroportos = [];
 const voos = [];
@@ -43,7 +48,9 @@ const menuAeroporto = () => {
       atendimentoUsuario.question(
         "Qual o endereço do aeroporto? ",
         (endereco) => {
-          aeroportos.push(menuA.adicionarAeroporto1(nome, codigo, endereco));
+          const aerop = new Aeroporto(nome, codigo, endereco);
+          aeroportos.push(aerop);
+          salvarArquivo("aeroporto", aerop.getDadosCompletos());
           console.log(`Aeroporto criado com sucesso---------------- `);
           console.log(aeroportos);
           AtendimentoMenu();
@@ -64,14 +71,9 @@ const menuVoo = () => {
             atendimentoUsuario.question(
               "Qual o nome da empresa Aérea? ",
               (nomeEmpresaAerea) => {
-                voos.push(
-                  menuV.adicionarVoo2(
-                    codigoVoo,
-                    codigoAeroportoOrigem,
-                    codigoAeroportoDestino,
-                    nomeEmpresaAerea
-                  )
-                );
+                const v = new Voo(codigoAeroportoOrigem, codigoAeroportoDestino, nomeEmpresaAerea);
+                voos.push(v);
+                salvarArquivo("Voo", v.getDadosCompletos());
                 console.log(`Vôo criado com sucesso---------------- `);
                 console.log(voos);
                 AtendimentoMenu();
@@ -86,14 +88,14 @@ const menuVoo = () => {
 
 const menuPassageiro = () => {
   atendimentoUsuario.question(
-    "Qual o número do aeroporto? ",
+    "Qual o codigo De Voo? ",
     (codigoDeVooPassageiro) => {
       atendimentoUsuario.question(
-        "Qual o código do aeroporto? ",
+        "Qual o nome do Passageiro? ",
         (nomePassageiro) => {
-          passageiros.push(
-            menuP.adicionarPassageiro3(codigoDeVooPassageiro, nomePassageiro)
-          );
+          const p = new Passageiro(codigoDeVooPassageiro, nomePassageiro);
+          passageiros.push(p);
+          salvarArquivo("passageiro", p.getDadosCompletos());
           console.log(`Passageiro criado com sucesso---------------- `);
           console.log(passageiros);
           AtendimentoMenu();
@@ -104,11 +106,11 @@ const menuPassageiro = () => {
 };
 
 const menuListarVoos = () => {
-  console.log("\nListagem de voos\n")
+  console.log("\nListagem de voos\n");
   console.log(voos);
-  console.log("\nListagem de aeroportos\n")
+  console.log("\nListagem de aeroportos\n");
   console.log(aeroportos);
-  console.log("\nListagem de passageiros\n")
-  console.log(passageiros)
+  console.log("\nListagem de passageiros\n");
+  console.log(passageiros);
   AtendimentoMenu();
 };
