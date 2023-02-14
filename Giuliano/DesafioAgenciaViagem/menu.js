@@ -52,7 +52,6 @@ class menuPassageiro extends Passageiro.Passageiro {
     return passageiro;
   };
 }
-listarVoos4 = () => {};
 
 exports.menuAeroporto = menuAeroporto;
 exports.menuVoo = menuVoo;

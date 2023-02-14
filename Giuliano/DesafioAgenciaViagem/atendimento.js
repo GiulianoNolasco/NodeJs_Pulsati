@@ -1,6 +1,8 @@
 const menuA = require("./menu").menuAeroporto;
 const menuV = require("./menu").menuVoo;
 const menuP = require("./menu").menuPassageiro;
+let Voo = require("./Voo");
+
 
 const aeroportos = [];
 const voos = [];
@@ -82,16 +84,31 @@ const menuVoo = () => {
   });
 };
 
-
 const menuPassageiro = () => {
-  atendimentoUsuario.question("Qual o número do aeroporto? ", (codigoDeVooPassageiro) => {
-    atendimentoUsuario.question("Qual o código do aeroporto? ", (nomePassageiro) => {
-      
-          passageiros.push(menuP.adicionarPassageiro3(codigoDeVooPassageiro, nomePassageiro));
+  atendimentoUsuario.question(
+    "Qual o número do aeroporto? ",
+    (codigoDeVooPassageiro) => {
+      atendimentoUsuario.question(
+        "Qual o código do aeroporto? ",
+        (nomePassageiro) => {
+          passageiros.push(
+            menuP.adicionarPassageiro3(codigoDeVooPassageiro, nomePassageiro)
+          );
           console.log(`Passageiro criado com sucesso---------------- `);
           console.log(passageiros);
           AtendimentoMenu();
         }
       );
-  });
+    }
+  );
+};
+
+const menuListarVoos = () => {
+  console.log("\nListagem de voos\n")
+  console.log(voos);
+  console.log("\nListagem de aeroportos\n")
+  console.log(aeroportos);
+  console.log("\nListagem de passageiros\n")
+  console.log(passageiros)
+  AtendimentoMenu();
 };
