@@ -43,17 +43,16 @@ const AtendimentoMenu = function () {
 AtendimentoMenu();
 
 const menuAeroporto = () => {
-  atendimentoUsuario.question("Qual o número do aeroporto? ", (nome) => {
+  atendimentoUsuario.question("Qual o nome do aeroporto? ", (nome) => {
     atendimentoUsuario.question("Qual o código do aeroporto? ", (codigo) => {
       atendimentoUsuario.question(
         "Qual o endereço do aeroporto? ",
         (endereco) => {
           const aerop = new Aeroporto(nome, codigo, endereco);
-
           const aeropJson = JSON.stringify(aerop);
           aeroportos.push(aerop);
-          salvarArquivo("aeroporto.json", aeropJson).then(() => {
-            lerArquivo("aeroporto.json").then((texto) =>
+          salvarArquivo(`${aerop.nome}.json`, aeropJson).then(() => {
+            lerArquivo(`${aerop.nome}.json`).then((texto) =>
               console.log(JSON.parse(texto))
             );
           });
@@ -68,23 +67,19 @@ const menuAeroporto = () => {
 
 const menuVoo = () => {
   atendimentoUsuario.question("Qual o código do Vôo? ", (codigoVoo) => {
-    atendimentoUsuario.question(
-      "Qual o código do aeroporto de origem? ",
-      (codigoAeroportoOrigem) => {
-        atendimentoUsuario.question(
-          "Qual o código do aeroporto de destino? ",
-          (codigoAeroportoDestino) => {
-            atendimentoUsuario.question(
-              "Qual o nome da empresa Aérea? ",
-              (nomeEmpresaAerea) => {
+    atendimentoUsuario.question(      "Qual o código do aeroporto de origem? ",      (codigoAeroportoOrigem) => {
+        atendimentoUsuario.question("Qual o código do aeroporto de destino? ",(codigoAeroportoDestino) => {
+            atendimentoUsuario.question("Qual o nome da empresa Aérea? ",(nomeEmpresaAerea) => {
+                
                 const v = new Voo(
+                  codigoVoo,
                   codigoAeroportoOrigem,
                   codigoAeroportoDestino,
                   nomeEmpresaAerea
                 );
                 const vJson = JSON.stringify(v);
                 voos.push(v);
-                salvarArquivo("Voo.json", vJson);
+                salvarArquivo(`${v.codigoVoo}.json`, vJson);
                 console.log(`Vôo criado com sucesso---------------- `);
                 console.log(voos);
                 AtendimentoMenu();
@@ -104,7 +99,7 @@ const ImprimeDados = async () => {
 
 const menuPassageiro = () => {
   atendimentoUsuario.question(
-    "Qual o codigo De Voo? ",
+    "Qual o codigo De Voo do passageiro? ",
     (codigoDeVooPassageiro) => {
       atendimentoUsuario.question(
         "Qual o nome do Passageiro? ",
@@ -112,9 +107,8 @@ const menuPassageiro = () => {
           const p = new Passageiro(codigoDeVooPassageiro, nomePassageiro);
           const pJson = JSON.stringify(p);
           passageiros.push(p);
-          salvarArquivo("passageiro.json", pJson);
+          salvarArquivo(`${p.nomePassageiro}.json`, pJson);
           ImprimeDados();
-
           console.log(`Passageiro criado com sucesso---------------- `);
           console.log(passageiros);
           AtendimentoMenu();
