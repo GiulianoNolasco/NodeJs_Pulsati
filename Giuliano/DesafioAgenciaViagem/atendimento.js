@@ -1,11 +1,6 @@
 const { Aeroporto } = require("./Aeroporto");
 const { Passageiro } = require("./Passageiro");
 const { Voo } = require("./Voo");
-
-const menuA = require("./bancoDeDados").bancoAeroporto;
-const SalvaA = require("./Aeroporto").Aeroporto.getDadosCompletos;
-const menuV = require("./bancoDeDados").bancoVoo;
-const menuP = require("./bancoDeDados").bancoPassageiro;
 const salvarArquivo = require("./promise").salvarArquivo;
 const lerArquivo = require("./promise").lerArquivo;
 
@@ -43,34 +38,41 @@ const AtendimentoMenu = function () {
 AtendimentoMenu();
 
 const menuAeroporto = () => {
-  atendimentoUsuario.question("Qual o nome do aeroporto? ", (nome) => {
-    atendimentoUsuario.question("Qual o código do aeroporto? ", (codigo) => {
-      atendimentoUsuario.question(
-        "Qual o endereço do aeroporto? ",
-        (endereco) => {
-          const aerop = new Aeroporto(nome, codigo, endereco);
-          const aeropJson = JSON.stringify(aerop);
-          aeroportos.push(aerop);
-          salvarArquivo(`${aerop.nome}.json`, aeropJson).then(() => {
-            lerArquivo(`${aerop.nome}.json`).then((texto) =>
-              console.log(JSON.parse(texto))
-            );
-          });
-          console.log(`Aeroporto criado com sucesso---------------- `);
-          console.log(aeroportos);
-          AtendimentoMenu();
-        }
-      );
+  atendimentoUsuario.question("Informe o ID. ", (id) => {
+    atendimentoUsuario.question("Qual o nome do aeroporto? ", (nome) => {
+      atendimentoUsuario.question("Qual o código do aeroporto? ", (codigo) => {
+        atendimentoUsuario.question(
+          "Qual o endereço do aeroporto? ",
+          (endereco) => {
+            const aerop = new Aeroporto(id, nome, codigo, endereco);
+            const aeropJson = JSON.stringify(aerop);
+            aeroportos.push(aerop);
+            salvarArquivo(`A${aerop.id}.json`, aeropJson).then(() => {
+              lerArquivo(`A${aerop.id}.json`).then((texto) =>
+                console.log(JSON.parse(texto))
+              );
+            });
+            console.log(`Aeroporto criado com sucesso---------------- `);
+            console.log(aeroportos);
+            AtendimentoMenu();
+          }
+        );
+      });
     });
   });
 };
 
 const menuVoo = () => {
   atendimentoUsuario.question("Qual o código do Vôo? ", (codigoVoo) => {
-    atendimentoUsuario.question(      "Qual o código do aeroporto de origem? ",      (codigoAeroportoOrigem) => {
-        atendimentoUsuario.question("Qual o código do aeroporto de destino? ",(codigoAeroportoDestino) => {
-            atendimentoUsuario.question("Qual o nome da empresa Aérea? ",(nomeEmpresaAerea) => {
-                
+    atendimentoUsuario.question(
+      "Qual o código do aeroporto de origem? ",
+      (codigoAeroportoOrigem) => {
+        atendimentoUsuario.question(
+          "Qual o código do aeroporto de destino? ",
+          (codigoAeroportoDestino) => {
+            atendimentoUsuario.question(
+              "Qual o nome da empresa Aérea? ",
+              (nomeEmpresaAerea) => {
                 const v = new Voo(
                   codigoVoo,
                   codigoAeroportoOrigem,
@@ -92,8 +94,8 @@ const menuVoo = () => {
   });
 };
 const ImprimeDados = async () => {
-  await console.log('teste');
-  await console.log('teste2');
+  await console.log("teste");
+  await console.log("teste2");
   console.log("Processo finalizado");
 };
 

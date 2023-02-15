@@ -1,5 +1,4 @@
 const http = require("http");
-const { salvarArquivo, lerArquivo } = require("./promise");
 const { serverAeroportoGet } = require("./serverAeroportoGet");
 const { serverAeroportoPost } = require("./serverAeroportoPost");
 const { serverPassageiroPost } = require("./serverPassageiroPost");

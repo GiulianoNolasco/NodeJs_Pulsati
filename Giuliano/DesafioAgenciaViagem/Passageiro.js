@@ -1,4 +1,5 @@
 class Passageiro {
+  id;
   codigoDeVooPassageiro;
   nomePassageiro;
 

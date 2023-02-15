@@ -1,4 +1,5 @@
 class Voo {
+  id;
   codigoVoo;
   codigoAeroportoOrigem;
   codigoAeroportoDestino;

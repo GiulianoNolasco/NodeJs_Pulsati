@@ -13,17 +13,15 @@ const serverAeroportoDelete = (req, res) => {
       aeroportos.codigo,
       aeroportos.endereco
     );
-    console.log(aeroporto.getDadosCompletos());
     const aeroportoJson = JSON.stringify(aeroporto);
 
-    excluirArquivo(`${aeroporto.nome}.json`).then((texto) => {
-      res.end(texto);
+    excluirArquivo(`${aeroporto.nome}.json`).then((aeroportoJson) => {
+      res.end(aeroportoJson);
     });
-
     res.writeHead(202, {
       "Content-Type": "application/json",
     });
-    res.end(aeroportoJson);
+    res.end(`${aeroportoJson} \n Arquivo deletado.`);
   });
 };
 
