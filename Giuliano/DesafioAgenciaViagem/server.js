@@ -1,3 +1,4 @@
+var fs = require("fs");
 const http = require("http");
 const { Aeroporto } = require("./Aeroporto");
 const { Passageiro } = require("./Passageiro");
@@ -74,6 +75,17 @@ http
             "Content-Type": "application/json",
           });
           res.end(vooJson);
+        });
+      } else {
+        res.end("Not found");
+      }
+    } else if (req.method == "GET") {
+      if (req.url.indexOf("/voosget") >= 0) {
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+        });
+        lerArquivo("./36.json").then((texto) => {
+          res.end(texto);
         });
       } else {
         res.end("Not found");
