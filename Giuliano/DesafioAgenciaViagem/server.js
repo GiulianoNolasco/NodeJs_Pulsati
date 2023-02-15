@@ -8,6 +8,8 @@ const { serverVooPost } = require("./serverVooPost");
 const { serverVooGet } = require("./serverVooGet");
 const { serverAeroportoPut } = require("./serverAeroportoPut");
 const { serverPassageiroPut } = require("./serverPassageiroPut");
+const { serverVooPut } = require("./serverVooPut");
+const { serverAeroportoDelete } = require("./serverAeroportoDelete");
 
 http
   .createServer((req, res) => {

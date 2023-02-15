@@ -27,3 +27,16 @@ exports.lerArquivo = (nomeArquivo) => {
   });
   return promessa;
 };
+
+exports.excluirArquivo = (nomeArquivo) => {
+  const promessa = new Promise((reject) => {
+    fs.unlink(nomeArquivo, (erro) => {
+      if (erro) {
+        reject(erro);
+      } else {
+        console.log("Arquivo deletado!");
+      }
+    });
+  });
+  return promessa;
+};
