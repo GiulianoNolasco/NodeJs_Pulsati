@@ -16,7 +16,7 @@ const serverPassageiroPost = (req, res) => {
     const passageiroJson = JSON.stringify(passageiro);
     salvarArquivo(
       `${passageiro.nomePassageiro}.json`,
-      JSON.stringify(passageiroJson)
+      JSON.stringify(passageiro)
     );
     res.writeHead(201, {
       "Content-Type": "application/json",

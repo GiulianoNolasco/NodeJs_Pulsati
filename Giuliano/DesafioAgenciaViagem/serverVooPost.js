@@ -16,7 +16,7 @@ const serverVooPost = (req, res) => {
     );
     console.log(voo.getDadosCompletos());
     const vooJson = JSON.stringify(voo);
-    salvarArquivo(`${voo.codigoVoo}.json`, JSON.stringify(vooJson));
+    salvarArquivo(`${voo.codigoVoo}.json`, JSON.stringify(voo));
     res.writeHead(201, {
       "Content-Type": "application/json",
     });

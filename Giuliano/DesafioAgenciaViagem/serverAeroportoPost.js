@@ -15,7 +15,7 @@ const serverAeroportoPost = (req, res) => {
     );
     console.log(aeroporto.getDadosCompletos());
     const aeroportoJson = JSON.stringify(aeroporto);
-    salvarArquivo(`${aeroporto.nome}.json`, JSON.stringify(aeroportoJson));
+    salvarArquivo(`${aeroporto.nome}.json`, JSON.stringify(aeroporto));
     res.writeHead(201, {
       "Content-Type": "application/json",
     });

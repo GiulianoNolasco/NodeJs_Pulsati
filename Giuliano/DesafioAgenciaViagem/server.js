@@ -1,8 +1,11 @@
 const http = require("http");
 const { salvarArquivo, lerArquivo } = require("./promise");
+const { serverAeroportoGet } = require("./serverAeroportoGet");
 const { serverAeroportoPost } = require("./serverAeroportoPost");
-const { serverPassageiroPost } = require("./serverpassageiroPost");
+const { serverPassageiroPost } = require("./serverPassageiroPost");
+const { serverPassageiroGet } = require("./serverPassageiroGet");
 const { serverVooPost } = require("./serverVooPost");
+const { serverVooGet } = require("./serverVooGet");
 
 http
   .createServer((req, res) => {
@@ -18,29 +21,12 @@ http
       }
     } else if (req.method == "GET") {
       if (req.url.indexOf("/aeroportos") >= 0) {
-        res.writeHead(200, {
-          "Content-Type": "application/json",
-        });
-        lerArquivo("./1Aeroporto.json").then((texto) => {
-          res.end(texto);
-        });
-      }else if (req.url.indexOf("/passageiros") >= 0) {
-        res.writeHead(200, {
-          "Content-Type": "application/json",
-        });
-        lerArquivo("./1passageiro.json").then((texto) => {
-          res.end(texto);
-        });
-      }
-      else if (req.url.indexOf("/voos") >= 0) {
-        res.writeHead(200, {
-          "Content-Type": "application/json",
-        });
-        lerArquivo("./1voo.json").then((texto) => {
-          res.end(texto);
-        });
-      }
-      else {
+        serverAeroportoGet(res);
+      } else if (req.url.indexOf("/passageiros") >= 0) {
+        serverPassageiroGet(res);
+      } else if (req.url.indexOf("/voos") >= 0) {
+        serverVooGet(res);
+      } else {
         res.end("Not found");
       }
     } else {
