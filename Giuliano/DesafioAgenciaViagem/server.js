@@ -6,6 +6,8 @@ const { serverPassageiroPost } = require("./serverPassageiroPost");
 const { serverPassageiroGet } = require("./serverPassageiroGet");
 const { serverVooPost } = require("./serverVooPost");
 const { serverVooGet } = require("./serverVooGet");
+const { serverAeroportoPut } = require("./serverAeroportoPut");
+const { serverPassageiroPut } = require("./serverPassageiroPut");
 
 http
   .createServer((req, res) => {
@@ -26,6 +28,22 @@ http
         serverPassageiroGet(res);
       } else if (req.url.indexOf("/voos") >= 0) {
         serverVooGet(res);
+      } else {
+        res.end("Not found");
+      }
+    } else if (req.method == "PUT") {
+      if (req.url.indexOf("/aeroportos") >= 0) {
+        serverAeroportoPut(req, res);
+      } else if (req.url.indexOf("/passageiros") >= 0) {
+        serverPassageiroPut(req, res);
+      } else if (req.url.indexOf("/voos") >= 0) {
+        serverVooPut(req, res);
+      } else {
+        res.end("Not found");
+      }
+    } else if (req.method == "DELETE") {
+      if (req.url.indexOf("/aeroportos") >= 0) {
+        serverAeroportoDelete(req, res);
       } else {
         res.end("Not found");
       }
