@@ -1,7 +1,7 @@
 /*
 Funcionalidades:
-• A aplicação deve apresentar um menu no console com as opções, cada opção tem um número
-• O menu de opções deve ter as seguintes opções:
+• A aplicação deve apresentar um banco no console com as opções, cada opção tem um número
+• O banco de opções deve ter as seguintes opções:
 - Adicionar aeroporto, com as informações de Nome, Código e Endereço
 - Adicionar voo, com as informações de Código do voo, Código aeroporto origem, Código aeroporto destino e 
 Nome da empresa aérea
@@ -19,14 +19,14 @@ let Aeroporto = require("./Aeroporto");
 let Voo = require("./Voo");
 let Passageiro = require("./Passageiro");
 
-class menuAeroporto extends Aeroporto.Aeroporto {
+class bancoAeroporto extends Aeroporto.Aeroporto {
   static adicionarAeroporto1(nome, codigo, endereco) {
     let aeroporto = new Aeroporto.Aeroporto(nome, codigo, endereco);
     return aeroporto;
   }
 }
 
-class menuVoo extends Voo.Voo {
+class bancoVoo extends Voo.Voo {
   static adicionarVoo2(
     codigoVoo,
     codigoAeroportoOrigem,
@@ -43,7 +43,7 @@ class menuVoo extends Voo.Voo {
   }
 }
 
-class menuPassageiro extends Passageiro.Passageiro {
+class bancoPassageiro extends Passageiro.Passageiro {
   static adicionarPassageiro3 (codigoDeVooPassageiro, nomePassageiro){
     let passageiro = new Passageiro.Passageiro(
       codigoDeVooPassageiro,
@@ -53,6 +53,6 @@ class menuPassageiro extends Passageiro.Passageiro {
   };
 }
 
-exports.menuAeroporto = menuAeroporto;
-exports.menuVoo = menuVoo;
-exports.menuPassageiro = menuPassageiro;
+exports.bancoAeroporto = bancoAeroporto;
+exports.bancoVoo = bancoVoo;
+exports.bancoPassageiro = bancoPassageiro;

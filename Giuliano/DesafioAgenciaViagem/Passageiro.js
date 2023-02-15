@@ -9,7 +9,7 @@ class Passageiro {
 
   
   getDadosCompletos() {
-    return `${this.codigoDeVooPassageiro} ${this.nomePassageiro}}`;
+    return `${this.codigoDeVooPassageiro} ${this.nomePassageiro}`;
   }
 }
 exports.Passageiro = Passageiro;
