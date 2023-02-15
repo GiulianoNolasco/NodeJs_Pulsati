@@ -1,5 +1,5 @@
-const { Aeroporto } = require("./Aeroporto");
-const { excluirArquivo } = require("./promise");
+const { Aeroporto } = require("../classe/Aeroporto");
+const { excluirArquivo } = require("../promise");
 
 const serverAeroportoDelete = (req, res) => {
   var body = "";
@@ -9,13 +9,15 @@ const serverAeroportoDelete = (req, res) => {
   req.on("end", function () {
     const aeroportos = JSON.parse(body);
     const aeroporto = new Aeroporto(
+      aeroportos.id,
       aeroportos.nome,
       aeroportos.codigo,
       aeroportos.endereco
     );
+    
     const aeroportoJson = JSON.stringify(aeroporto);
 
-    excluirArquivo(`${aeroporto.nome}.json`).then((aeroportoJson) => {
+    excluirArquivo(`1A${aeroporto.id}.json`).then((aeroportoJson) => {
       res.end(aeroportoJson);
     });
     res.writeHead(202, {

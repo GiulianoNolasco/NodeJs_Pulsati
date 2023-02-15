@@ -47,8 +47,8 @@ const menuAeroporto = () => {
             const aerop = new Aeroporto(id, nome, codigo, endereco);
             const aeropJson = JSON.stringify(aerop);
             aeroportos.push(aerop);
-            salvarArquivo(`A${aerop.id}.json`, aeropJson).then(() => {
-              lerArquivo(`A${aerop.id}.json`).then((texto) =>
+            salvarArquivo(`1A${aerop.id}.json`, aeropJson).then(() => {
+              lerArquivo(`1A${aerop.id}.json`).then((texto) =>
                 console.log(JSON.parse(texto))
               );
             });
@@ -63,34 +63,37 @@ const menuAeroporto = () => {
 };
 
 const menuVoo = () => {
-  atendimentoUsuario.question("Qual o código do Vôo? ", (codigoVoo) => {
-    atendimentoUsuario.question(
-      "Qual o código do aeroporto de origem? ",
-      (codigoAeroportoOrigem) => {
-        atendimentoUsuario.question(
-          "Qual o código do aeroporto de destino? ",
-          (codigoAeroportoDestino) => {
-            atendimentoUsuario.question(
-              "Qual o nome da empresa Aérea? ",
-              (nomeEmpresaAerea) => {
-                const v = new Voo(
-                  codigoVoo,
-                  codigoAeroportoOrigem,
-                  codigoAeroportoDestino,
-                  nomeEmpresaAerea
-                );
-                const vJson = JSON.stringify(v);
-                voos.push(v);
-                salvarArquivo(`${v.codigoVoo}.json`, vJson);
-                console.log(`Vôo criado com sucesso---------------- `);
-                console.log(voos);
-                AtendimentoMenu();
-              }
-            );
-          }
-        );
-      }
-    );
+  atendimentoUsuario.question("Informe o ID. ", (id) => {
+    atendimentoUsuario.question("Qual o código do Vôo? ", (codigoVoo) => {
+      atendimentoUsuario.question(
+        "Qual o código do aeroporto de origem? ",
+        (codigoAeroportoOrigem) => {
+          atendimentoUsuario.question(
+            "Qual o código do aeroporto de destino? ",
+            (codigoAeroportoDestino) => {
+              atendimentoUsuario.question(
+                "Qual o nome da empresa Aérea? ",
+                (nomeEmpresaAerea) => {
+                  const v = new Voo(
+                    id,
+                    codigoVoo,
+                    codigoAeroportoOrigem,
+                    codigoAeroportoDestino,
+                    nomeEmpresaAerea
+                  );
+                  const vJson = JSON.stringify(v);
+                  voos.push(v);
+                  salvarArquivo(`2V${v.id}.json`, vJson);
+                  console.log(`Vôo criado com sucesso---------------- `);
+                  console.log(voos);
+                  AtendimentoMenu();
+                }
+              );
+            }
+          );
+        }
+      );
+    });
   });
 };
 const ImprimeDados = async () => {
@@ -100,24 +103,26 @@ const ImprimeDados = async () => {
 };
 
 const menuPassageiro = () => {
-  atendimentoUsuario.question(
-    "Qual o codigo De Voo do passageiro? ",
-    (codigoDeVooPassageiro) => {
-      atendimentoUsuario.question(
-        "Qual o nome do Passageiro? ",
-        (nomePassageiro) => {
-          const p = new Passageiro(codigoDeVooPassageiro, nomePassageiro);
-          const pJson = JSON.stringify(p);
-          passageiros.push(p);
-          salvarArquivo(`${p.nomePassageiro}.json`, pJson);
-          ImprimeDados();
-          console.log(`Passageiro criado com sucesso---------------- `);
-          console.log(passageiros);
-          AtendimentoMenu();
-        }
-      );
-    }
-  );
+  atendimentoUsuario.question("Informe o ID. ", (id) => {
+    atendimentoUsuario.question(
+      "Qual o codigo De Voo do passageiro? ",
+      (codigoDeVooPassageiro) => {
+        atendimentoUsuario.question(
+          "Qual o nome do Passageiro? ",
+          (nomePassageiro) => {
+            const p = new Passageiro(id, codigoDeVooPassageiro, nomePassageiro);
+            const pJson = JSON.stringify(p);
+            passageiros.push(p);
+            salvarArquivo(`3P${p.id}.json`, pJson);
+            ImprimeDados();
+            console.log(`Passageiro criado com sucesso---------------- `);
+            console.log(passageiros);
+            AtendimentoMenu();
+          }
+        );
+      }
+    );
+  });
 };
 
 const menuListarVoos = () => {

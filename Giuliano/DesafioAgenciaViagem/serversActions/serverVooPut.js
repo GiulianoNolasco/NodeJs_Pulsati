@@ -1,7 +1,7 @@
-const { salvarArquivo } = require("./promise");
-const { Voo } = require("./Voo");
+const { salvarArquivo } = require("../promise");
+const { Voo } = require("../classe/Voo");
 
-const serverVooPost = (req, res) => {
+const serverVooPut = (req, res) => {
   var body = "";
   req.on("data", function (chunk) {
     body += chunk;
@@ -23,4 +23,4 @@ const serverVooPost = (req, res) => {
     res.end(vooJson);
   });
 };
-exports.serverVooPost = serverVooPost;
+exports.serverVooPut = serverVooPut;

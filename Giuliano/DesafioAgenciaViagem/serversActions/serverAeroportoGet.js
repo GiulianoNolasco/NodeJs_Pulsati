@@ -1,4 +1,4 @@
-const { lerArquivo } = require("./promise");
+const { lerArquivo } = require("../promise");
 
 const serverAeroportoGet = (res) => {
   res.writeHead(200, {

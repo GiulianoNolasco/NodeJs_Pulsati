@@ -1,5 +1,5 @@
-const { Passageiro } = require("./Passageiro");
-const { salvarArquivo } = require("./promise");
+const { Passageiro } = require("../classe/Passageiro");
+const { salvarArquivo } = require("../promise");
 
 const serverPassageiroPut = (req, res) => {
   var body = "";
@@ -9,13 +9,14 @@ const serverPassageiroPut = (req, res) => {
   req.on("end", function () {
     const passageiros = JSON.parse(body);
     const passageiro = new Passageiro(
+      passageiros.id,
       passageiros.codigoDeVooPassageiro,
       passageiros.nomePassageiro
     );
     console.log(passageiro.getDadosCompletos());
     const passageiroJson = JSON.stringify(passageiro);
     salvarArquivo(
-      `${passageiro.nomePassageiro}.json`,
+      `3P${passageiro.id}.json`,
       JSON.stringify(passageiro)
     );
     res.writeHead(201, {

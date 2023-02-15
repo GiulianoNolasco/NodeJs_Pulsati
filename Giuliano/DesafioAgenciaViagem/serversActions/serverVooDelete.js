@@ -1,7 +1,7 @@
-const { salvarArquivo } = require("./promise");
-const { Voo } = require("./Voo");
+const { salvarArquivo, excluirArquivo } = require("../promise");
+const { Voo } = require("../classe/Voo");
 
-const serverVooPut = (req, res) => {
+const serverVooDelete = (req, res) => {
   var body = "";
   req.on("data", function (chunk) {
     body += chunk;
@@ -9,18 +9,22 @@ const serverVooPut = (req, res) => {
   req.on("end", function () {
     const voos = JSON.parse(body);
     const voo = new Voo(
+      voos.id,
       voos.codigoVoo,
       voos.codigoAeroportoOrigem,
       voos.codigoAeroportoDestino,
       voos.nomeEmpresaAerea
     );
-    console.log(voo.getDadosCompletos());
+
     const vooJson = JSON.stringify(voo);
-    salvarArquivo(`${voo.codigoVoo}.json`, JSON.stringify(voo));
-    res.writeHead(201, {
+
+    excluirArquivo(`2V${voo.id}.json`).then((vooJson) => {
+      res.end(vooJson);
+    });
+    res.writeHead(202, {
       "Content-Type": "application/json",
     });
-    res.end(vooJson);
+    res.end(`${vooJson} \n Arquivo deletado.`);
   });
 };
-exports.serverVooPut = serverVooPut;
+exports.serverVooDelete = serverVooDelete;

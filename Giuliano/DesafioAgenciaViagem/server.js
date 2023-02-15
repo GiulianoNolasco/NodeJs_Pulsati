@@ -1,14 +1,22 @@
 const http = require("http");
-const { serverAeroportoGet } = require("./serverAeroportoGet");
-const { serverAeroportoPost } = require("./serverAeroportoPost");
-const { serverPassageiroPost } = require("./serverPassageiroPost");
-const { serverPassageiroGet } = require("./serverPassageiroGet");
-const { serverVooPost } = require("./serverVooPost");
-const { serverVooGet } = require("./serverVooGet");
-const { serverAeroportoPut } = require("./serverAeroportoPut");
-const { serverPassageiroPut } = require("./serverPassageiroPut");
-const { serverVooPut } = require("./serverVooPut");
-const { serverAeroportoDelete } = require("./serverAeroportoDelete");
+const { serverAeroportoGet } = require("./serversActions/serverAeroportoGet");
+const { serverAeroportoPost } = require("./serversActions/serverAeroportoPost");
+const {
+  serverPassageiroPost,
+} = require("./serversActions/serverPassageiroPost");
+const { serverPassageiroGet } = require("./serversActions/serverPassageiroGet");
+const { serverVooPost } = require("./serversActions/serverVooPost");
+const { serverVooGet } = require("./serversActions/serverVooGet");
+const { serverAeroportoPut } = require("./serversActions/serverAeroportoPut");
+const { serverPassageiroPut } = require("./serversActions/serverPassageiroPut");
+const { serverVooPut } = require("./serversActions/serverVooPut");
+const {
+  serverAeroportoDelete,
+} = require("./serversActions/serverAeroportoDelete");
+const {
+  serverPassageiroDelete,
+} = require("./serversActions/serverPassageiroDelete");
+const { serverVooDelete } = require("./serversActions/serverVooDelete");
 
 http
   .createServer((req, res) => {
@@ -45,6 +53,10 @@ http
     } else if (req.method == "DELETE") {
       if (req.url.indexOf("/aeroportos") >= 0) {
         serverAeroportoDelete(req, res);
+      } else if (req.url.indexOf("/passageiros") >= 0) {
+        serverPassageiroDelete(req, res);
+      } else if (req.url.indexOf("/voos") >= 0) {
+        serverVooDelete(req, res);
       } else {
         res.end("Not found");
       }

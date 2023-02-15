@@ -1,4 +1,4 @@
-const { lerArquivo } = require("./promise");
+const { lerArquivo } = require("../promise");
 
 const serverVooGet = (res) => {
   res.writeHead(200, {
