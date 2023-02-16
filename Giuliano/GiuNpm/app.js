@@ -1,5 +1,6 @@
 const express = require("express");
 const { Aeroporto } = require("./PKG class/aeroporto");
+const { salvarArquivo } = require("./promise");
 const app = express();
 app.use(express.json());
 
@@ -11,6 +12,7 @@ app.post("/aeroportos", (req, res) => {
   const aeroporto = new Aeroporto(proximoCodigo, nome);
   proximoCodigo++;
   aeroportos.push(aeroporto);
+  salvarArquivo(`1_A_${aeroporto.codigo}.json`,JSON.stringify(aeroporto));
   res.json(aeroporto);
 });
 app.get("/aeroportos", (req, res) => {
@@ -28,6 +30,7 @@ app.put("/aeroportos/:codigo", (req, res) => {
   const aeroporto = aeroportos.find((aeroporto) => aeroporto.codigo == codigo);
   const { nome } = req.body;
   aeroporto.nome = nome;
+  salvarArquivo(`1_A_${aeroporto.codigo}.json`,JSON.stringify(aeroporto));
   res.json(aeroporto);
 });
 
