@@ -1,10 +1,6 @@
 const express = require("express");
 const { Aeroporto } = require("./PKG class/aeroporto");
-const {
-  salvarArquivo,
-  lerArquivos,
-  excluirArquivo,
-} = require("./promise");
+const { salvarArquivo, lerArquivos, excluirArquivo } = require("./promise");
 const app = express();
 app.use(express.json());
 const fs = require("fs");
@@ -22,11 +18,10 @@ app.post("/aeroportos", (req, res) => {
   res.json(aeroporto);
 });
 
-
 app.get("/aeroportos", (req, res) => {
   const directoryPath =
     "C:\\Users\\giuliano.santos\\Desktop\\agoravai2\\pulsati-nodejs\\Giuliano\\GiuNpm";
-   
+
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
       console.error("Erro ao ler diretório: ", err);
@@ -36,6 +31,7 @@ app.get("/aeroportos", (req, res) => {
     const jsonFiles = files.filter(
       (file) => path.extname(file).toLowerCase() === ".json"
     );
+    
     const jsonFilePaths = jsonFiles.map((file) =>
       path.join(directoryPath, file)
     );
@@ -44,13 +40,13 @@ app.get("/aeroportos", (req, res) => {
 
     aeroportoJson
       .then((aeroportoJson) => {
-        res.json((aeroportoJson));
+        res.json(aeroportoJson);
       })
       .catch((error) => {
         console.error(error);
         res.json(`Erro: ${error} ao tentar ler arquivos`);
       });
-  })
+  });
 });
 
 app.get("/aeroportos/:codigo", (req, res) => {
@@ -78,7 +74,7 @@ app.delete("/aeroportos/:codigo", (req, res) => {
     }
   });
   delete aeroportos[posicao];
-  
+
   excluirArquivo(`1_A_${aeroporto.codigo}.json`).then((texto) => {
     res.end(texto);
   });
