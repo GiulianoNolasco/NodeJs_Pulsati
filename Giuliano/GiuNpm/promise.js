@@ -28,17 +28,20 @@ exports.lerArquivo = (nomeArquivo) => {
   return promessa;
 };
 
-exports.lerArquivosJson = (nomeArquivo) => {
-  const promessa = new Promise((resolve, reject) => {
-    fs.readFile(nomeArquivo, "utf-8", (erro, texto) => {
-      if (erro) {
-        reject(erro);
-      } else {
-        resolve(texto);
-      }
-    });
-  });
-  return promessa;
+exports.lerArquivos = async (fileNames) => {
+  const data = [];
+  const fileContents = await Promise.all(
+    fileNames.map((fileName) => fs.promises.readFile(fileName))
+  );
+
+  for (let file of fileContents) {
+    // const buffer = fs.readFileSync(file);
+    const jsonStrig = file.toString();
+    const json = JSON.parse(jsonStrig);
+    data.push(json);
+  }
+  console.log(data, "data aquiiiiii");
+  return data;
 };
 exports.excluirArquivo = (nomeArquivo) => {
   const promessa = new Promise((reject) => {
