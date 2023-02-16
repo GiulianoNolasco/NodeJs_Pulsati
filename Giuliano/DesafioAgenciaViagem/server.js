@@ -5,6 +5,7 @@ const {
   serverPassageiroPost,
 } = require("./serversActions/serverPassageiroPost");
 const { serverPassageiroGet } = require("./serversActions/serverPassageiroGet");
+const { serverGetAll } = require("./serversActions/serverGetAll");
 const { serverVooPost } = require("./serversActions/serverVooPost");
 const { serverVooGet } = require("./serversActions/serverVooGet");
 const { serverAeroportoPut } = require("./serversActions/serverAeroportoPut");
@@ -37,6 +38,8 @@ http
         serverPassageiroGet(res);
       } else if (req.url.indexOf("/voos") >= 0) {
         serverVooGet(res);
+      } else if (req.url.indexOf("/get") >= 0) {
+        serverGetAll(res);
       } else {
         res.end("Not found");
       }
