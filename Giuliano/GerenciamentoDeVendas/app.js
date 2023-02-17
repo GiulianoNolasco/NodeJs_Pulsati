@@ -1,5 +1,5 @@
 const express = require("express");
-const { deleteEstoque, putEstoque, getEstoqueById, getEstoque, createEstoque } = require("./Controller/estoqueController");
+const { deleteEstoque, putEstoque, getEstoqueById, getEstoque, createEstoque, getEstoqueQuantidadeBaixa } = require("./Controller/estoqueController");
 const { createProduto, deleteProduto, putProduto, getProdutoById, getProduto } = require("./Controller/PRODUTOController");
 const { createVenda, getVenda, getVendaById, putVenda, deleteVenda } = require("./Controller/vendaController");
 
@@ -37,5 +37,7 @@ app.get("/venda", getVenda);
 app.get("/venda/:id", getVendaById);
 app.put("/venda/:id", putVenda);
 app.delete("/venda/:id", deleteVenda);
+
+app.get("/estoquequantidadebaixa", getEstoqueQuantidadeBaixa);
 
 app.listen(8000);

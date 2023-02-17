@@ -35,3 +35,15 @@ exports.deleteEstoque = async (req, res) => {
   await estoque.destroy();
   res.json({ data: "Estoque deletado com sucesso" });
 };
+
+exports.getEstoqueQuantidadeBaixa = async (req, res) => {
+  let filtro = "";
+  Estoque.findAll().then((result) =>
+    result.forEach((obj) => {
+      if (obj.quantidadeEmEstoque < 10) {
+        filtro += obj.get;
+      }
+    })
+  );
+  res.json(filtro);
+};
