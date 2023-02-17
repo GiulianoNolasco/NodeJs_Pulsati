@@ -37,11 +37,11 @@ exports.deleteEstoque = async (req, res) => {
 };
 
 exports.getEstoqueQuantidadeBaixa = async (req, res) => {
-  let filtro = "";
+  let filtro = [];
   Estoque.findAll().then((result) =>
     result.forEach((obj) => {
       if (obj.quantidadeEmEstoque < 10) {
-        filtro += obj.get;
+        filtro.push(obj);
       }
     })
   );
