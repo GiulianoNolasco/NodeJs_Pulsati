@@ -1,3 +1,5 @@
+const { DATE } = require("oracledb");
+const { where, DATEONLY, Op } = require("sequelize");
 const { Sessao } = require("../Model/sessaoModel");
 
 exports.createSessao = async (req, res) => {
@@ -62,7 +64,8 @@ exports.emitirIngresso = async (req, res) => {
   const id = req.params.id;
   const sessao = await Sessao.findByPk(id);
   if (sessao.ingressosVendidos >= 15) {
-    res.json({Error:422,
+    res.json({
+      Error: 422,
       data: "Sessao esgotada, não foi possível a venda do ingresso!",
     });
     await sessao.save();
@@ -73,7 +76,33 @@ exports.emitirIngresso = async (req, res) => {
   }
 };
 
-
 exports.getSessoesDoDia = async (req, res) => {
-  Sessao.findAll().then((result) => res.json(result));
+  Sessao.findAll({
+    attributes: ["nomeFilme", "horarioSessao", "ingressosVendidos"],
+    where: {
+      dataSessao: { [Op.like]: "2023/02/20" },
+    },
+  }).then((result) => res.json(result));
 };
+
+exports.getFaturamentoDoDia = async (req, res) => {
+  let resultado =  Sessao.findAll({
+    where: {
+      dataSessao: { [Op.like]: "2023/02/20" },
+    },
+  }).then((result)=> result.length);
+
+  res.json(resultado);
+};
+
+/*
+
+Requisito 7: Deve ter uma rota para poder visualizar 
+qual foi o faturamento do cinema, de todas as 
+sessões realizadas no dia, apresentando as seguintes 
+informações:
+- Quantidade total de sessões realizadas
+- Quantidade total de ingressos vendidos
+- Valor total dos ingressos vendidos
+
+*/

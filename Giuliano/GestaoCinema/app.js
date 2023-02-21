@@ -14,6 +14,7 @@ const {
   createSessao,
   emitirIngresso,
   getSessoesDoDia,
+  getFaturamentoDoDia,
 } = require("./Controller/sessaoController");
 const app = express();
 app.use(express.json());
@@ -33,6 +34,8 @@ app.delete("/sessao/:id", deleteSessao);
 app.put("/emitiringresso/:id", emitirIngresso);
 
 app.get("/sessoesdodia", getSessoesDoDia);
+
+app.get("/faturamentododia", getFaturamentoDoDia);
 
 
 app.listen(8000);
