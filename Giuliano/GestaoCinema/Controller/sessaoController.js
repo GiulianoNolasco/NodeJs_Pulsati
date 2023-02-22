@@ -86,12 +86,23 @@ exports.getSessoesDoDia = async (req, res) => {
 };
 
 exports.getFaturamentoDoDia = async (req, res) => {
-  let resultado =  Sessao.findAll({
+  let qtsessoes = await Sessao.findAll({
     where: {
       dataSessao: { [Op.like]: "2023/02/20" },
     },
-  }).then((result)=> result.length);
+  });
+  let somaIngressos = 0;
+  let somaValorIngressos = 0;
+  qtsessoes.forEach((element) => {
+    somaIngressos += element.ingressosVendidos;
+    somaValorIngressos += element.valorIngresso;
+  });
 
+  let resultado = `Quantidade total de sessões realizadas: ${qtsessoes.length}
+                 - Quantidade total de ingressos vendidos: ${somaIngressos}
+                 - Valor total dos ingressos vendidos: R$ ${
+                   somaIngressos * somaValorIngressos
+                 }`;
   res.json(resultado);
 };
 
