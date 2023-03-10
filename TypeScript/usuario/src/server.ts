@@ -1,7 +1,14 @@
-import express from "express";
-import AppDataSource from "./config/Database";
-import { UsuarioController } from "./controller/UsuarioController";
-
+const express = require("express");
+const {
+  createAirport,
+  updateAirport,
+  getAirport,
+  getAllAirports,
+  deleteAirport,
+} = require("./controller/aeroporto-controller");
+const { salvarArquivo } = require("./promessas");
+const classeAeroporto = require("./aeroporto").classeAeroporto;
+const app = express();
 AppDataSource.initialize()
   .then(() => {
     console.log("Conectado com sucesso ao banco");

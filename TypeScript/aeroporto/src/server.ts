@@ -1,6 +1,8 @@
-import express from "express";
 import AppDataSource from "./config/Database";
-import { AeroportoController } from "./controller/AeroportoController";
+
+const express = require("express");
+// const AppDataSource = require("./config/Database");
+const AeroportoController = require("./controller/AeroportoController");
 
 AppDataSource.initialize()
   .then(() => {
