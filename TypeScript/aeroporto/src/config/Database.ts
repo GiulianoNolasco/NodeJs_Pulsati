@@ -3,6 +3,8 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 
 import { Aeroporto } from "../model/aeroporto";
+import { Passageiro } from "../model/passageiro";
+import { Voo } from "../model/voo";
 
 const AppDataSource = new DataSource({
   type: "oracle",
@@ -11,8 +13,9 @@ const AppDataSource = new DataSource({
   username: "system",
   password: "pulsati2023",
   database: "xe",
-  entities: [Aeroporto],
+  entities: [Aeroporto, Passageiro, Voo],
   migrations: [`${__dirname}/**/migrations/*.{ts,js}`],
+  // synchronize: true,
 });
 
 export default AppDataSource;
